@@ -2,6 +2,14 @@
 
 [![codecov](https://codecov.io/gh/rodi0878/NNPTP26-2/graph/badge.svg?token=7Y6B0HFZ1G)](https://codecov.io/gh/rodi0878/NNPTP26-2)
 
+## Interactive command quoting
+
+Use matching single or double quotes for arguments containing spaces, for example
+`project add "Programming Course"`. An unclosed quote rejects the entire command
+without changing data and displays an error asking you to close the quote. The
+interactive session stays open so you can enter a corrected command.
+Escaped quotes inside a quoted argument are treated as text, not closing quotes.
+
 ## CLI option values
 
 For `task list` and `worklog log`, use `--option=value` when a value begins
