@@ -66,11 +66,11 @@ public class TaskPulseApp {
                 "Create Project, Task, Worklog, Priority, State",
                 Priority.HIGH,
                 120,
-                LocalDate.now().plusDays(2));
+                LocalDate.now().plusDays(2)
+        );
         taskService.addLabel(task1.getId(), "domain");
         taskService.addLabel(task1.getId(), "core");
-        out.println("Created Task: " + task1.getTitle() + " [" + task1.getPriority() + "] (Labels: " + task1.getLabels()
-                + ")");
+        out.println("Created Task: " + task1.getTitle() + " [" + task1.getPriority() + "] (Labels: " + task1.getLabels() + ")");
 
         out.println("Transitioning task to IN_PROGRESS...");
         taskService.transitionTask(task1.getId(), TaskState.IN_PROGRESS);
@@ -85,8 +85,7 @@ public class TaskPulseApp {
 
         Task finishedTask = taskService.getTask(task1.getId());
         out.println("Finished Task: " + finishedTask.getTitle() + " state: " + finishedTask.getState() +
-                ", worklogs: " + finishedTask.getWorklogs().size() + ", variance: " + finishedTask.getVarianceMinutes()
-                + " min");
+                ", worklogs: " + finishedTask.getWorklogs().size() + ", variance: " + finishedTask.getVarianceMinutes() + " min");
 
         out.println("=== Demo Finished Successfully ===");
     }
