@@ -36,6 +36,7 @@ public class TaskPulseCli {
         handlers.put("task", new TaskCliHandler(taskService, out, err));
         handlers.put("worklog", new WorklogCliHandler(taskService, out, err));
         handlers.put("report", new ReportCliHandler(projectService, taskService, out, err, clock));
+        handlers.put("man", new ManualCliHandler(out,err));
     }
 
     public TaskPulseCli(ProjectService projectService, TaskService taskService) {
