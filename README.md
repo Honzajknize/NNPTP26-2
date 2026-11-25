@@ -52,6 +52,15 @@ project/task references are rejected before the current session is changed.
 Each imported CSV file is limited to 64 MiB of uncompressed data. Other files in a
 CSV directory are ignored. Paths containing spaces should be quoted interactively.
 
+## CSV quoting
+
+Fields containing commas, double quotes or line breaks must be enclosed in double
+quotes. A literal double quote inside a quoted field is written as `""`.
+Opening quotes must be at the start of a field; after a closing quote, only a
+comma, line ending or end of file is allowed. Spaces outside quoted fields are
+not ignored. Malformed quoting causes loading or import to fail with an error
+instead of silently changing field values.
+
 # See also
 
 * [BACKLOG](BACKLOG.md)
