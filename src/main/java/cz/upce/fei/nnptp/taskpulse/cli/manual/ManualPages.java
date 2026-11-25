@@ -71,6 +71,8 @@ public final class ManualPages {
                             ARGUMENTS
                                 <name>
                                     Name of the project. Required.
+                                    Must not be blank.
+                                    Surrounding whitespace is removed.
 
                                 [description]
                                     Description of the project. Optional.
@@ -94,6 +96,8 @@ public final class ManualPages {
 
                             DESCRIPTION
                                 Deletes the project identified by its ID.
+                                A project can only be deleted if it contains no tasks.
+                                All associated tasks must be deleted first.
 
                             SYNOPSIS
                                 project delete <project-id>
@@ -136,6 +140,8 @@ public final class ManualPages {
 
                                 <name>
                                     New name of the project. Required.
+                                    Must not be blank.
+                                    Surrounding whitespace is removed.
 
                                 [description]
                                     New description of the project. Optional.
@@ -238,6 +244,8 @@ public final class ManualPages {
 
                                 <title>
                                     Title of the task. Required.
+                                    Must not be blank.
+                                    Surrounding whitespace is removed.
 
                                 [description]
                                     Description of the task. Optional.
@@ -381,6 +389,7 @@ public final class ManualPages {
                             DESCRIPTION
                                 Updates selected properties of an existing task.
                                 Properties not specified remain unchanged.
+                                At least one update option must be specified.
 
                             SYNOPSIS
                                 task update <task-id>
@@ -397,6 +406,8 @@ public final class ManualPages {
                             OPTIONS
                                 --title <title>
                                     Set a new task title.
+                                    Must not be blank.
+                                    Surrounding whitespace is removed.
 
                                 --description <text>
                                     Set a new task description.
@@ -475,6 +486,9 @@ public final class ManualPages {
                                     Display tasks whose recorded time exceeds
                                     their estimated duration by more than the
                                     specified number of minutes.
+
+                                    Default threshold: 0 minutes.
+                                    The threshold must be non-negative.
                                     Tasks without an estimate are excluded.
 
                                 --sort <order>
@@ -553,6 +567,11 @@ public final class ManualPages {
                                 Associates a label with an existing task.
                                 Labels can be used to categorize and filter tasks.
 
+                                Labels are converted to lowercase and surrounding whitespace is removed.
+
+                                Labels must not be blank or contain semicolons (;).
+                                Adding an existing label does not create a duplicate
+
                             SYNOPSIS
                                 task label add <task-id> <label>
 
@@ -585,6 +604,10 @@ public final class ManualPages {
                             DESCRIPTION
                                 Removes the association between a task
                                 and the specified label.
+
+                                Label matching is case-insensitive.
+
+                                Removing a valid label that is not associated with the task has no effect.
 
                             SYNOPSIS
                                 task label remove <task-id> <label>
@@ -643,6 +666,8 @@ public final class ManualPages {
                                 Each worklog includes a duration, an author
                                 and an optional description.
 
+                                Work can only be recorded for taks in the IN_PROGRESS state.
+
                             SYNOPSIS
                                 worklog log <task-id> <durationMinutes>
                                             --author <author>
@@ -654,10 +679,11 @@ public final class ManualPages {
 
                                 <durationMinutes>
                                     Duration of work in whole minutes.
+                                    Must be greater than zero.
 
                             OPTIONS
                                 --author <author>
-                                    Author of the worklog. Required.
+                                    Author of the worklog. Required and must not be blank.
 
                                 --desc <description>
                                     Optional description of the recorded work.
@@ -682,7 +708,8 @@ public final class ManualPages {
                                 worklog list - Lists recorded worklogs.
 
                             DESCRIPTION
-                                Displays worklogs associated with a specified task.
+                                Displays worklogs associated with a specified task,
+                                including timestamps, durations, and optional descriptions.
 
                             SYNOPSIS
                                 worklog list <task-id>
@@ -812,6 +839,7 @@ public final class ManualPages {
 
                                 The resulting archive can be used as a backup
                                 or imported into another workspace.
+                                Existing files are never overwritten.
 
                             SYNOPSIS
                                 workspace export <archive.zip>
@@ -842,6 +870,22 @@ public final class ManualPages {
                                 or a directory containing CSV files.
 
                                 The imported data replaces the current workspace.
+
+                                The imported bundle must contain:
+                                projects.csv
+                                tasks.csv
+                                worklogs.csv
+
+                                Each CSV file must have a valid header and must
+                                not exceed 64 MiB.
+
+                                UTF-8 BOM headers are supported.
+
+                                ZIP archives must not contain unexpected
+                                or duplicate entries.
+
+                                The bundle is validated before the current
+                                workspace is replaced.
 
                             SYNOPSIS
                                 workspace import <archive.zip|csv-directory>
