@@ -130,6 +130,7 @@ public class TaskPulseCli {
         out.println("    Without --output, prints to the console. Existing files are never overwritten.");
         out.println("  workspace export <archive.zip>");
         out.println("  workspace import <archive.zip|csv-directory> (replaces current workspace)");
+        out.println("  man [command]");
         out.println("  exit / quit");
     }
 
